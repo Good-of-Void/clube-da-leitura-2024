@@ -1,10 +1,65 @@
-﻿namespace ClubeDaLeitura.ConsoleApp
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
+using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
+
+namespace ClubeDaLeitura.ConsoleApp
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            //chamar o modolo Responsavel
+            Repositorio_Responsavel repositorio_Responsavel = new Repositorio_Responsavel();
+            Tela_Responsavel tela_Responsavel = new Tela_Responsavel();
+
+            tela_Responsavel.tipoEntidade = "Responsavel";
+            tela_Responsavel.repositorio = repositorio_Responsavel;
+
+            //chamar modolo Amigo
+            Repositorio_Amigo repositorio_Amigo = new Repositorio_Amigo();
+            Tela_Amigo tela_Amigo = new Tela_Amigo();
+
+            tela_Amigo.tipoEntidade = "Amigo";
+            tela_Amigo.repositorio = repositorio_Amigo;
+
+            tela_Amigo.repositorio_Responsavel = repositorio_Responsavel;
+            tela_Amigo.tela_Responsavel = tela_Responsavel;
+
+            while (true)
+            {
+                char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
+
+                if (opcaoPrincipalEscolhida == 'S' || opcaoPrincipalEscolhida == 's')
+                    break;
+
+                TelaBase tela = null;
+
+                if (opcaoPrincipalEscolhida == '1')
+                    tela = tela_Responsavel;
+
+                else if (opcaoPrincipalEscolhida == '2')
+                    tela = tela_Amigo;
+
+                char operacaoEscolhida = tela.ApresentarMenu();
+
+                if (operacaoEscolhida == 'S' || operacaoEscolhida == 's')
+                    continue;
+
+                if (operacaoEscolhida == '1')
+                    tela.Registrar();
+
+                else if (operacaoEscolhida == '2')
+                    tela.Editar();
+
+                else if (operacaoEscolhida == '3')
+                    tela.Excluir();
+
+                else if (operacaoEscolhida == '4')
+                    tela.VisualizarRegistros(true);
+
+
+
+            }
         }
     }
 }
