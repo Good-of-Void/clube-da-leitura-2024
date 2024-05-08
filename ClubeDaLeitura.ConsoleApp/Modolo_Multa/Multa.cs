@@ -9,9 +9,22 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
 {
     internal class Multa : EntidadeBase
     {
-        public override void AtualizarRegistro(EntidadeBase novoegistro)
+        //variaveis
+        public string ValorMulta { get; set; }
+        public bool QuitarMulta { get; set; }
+        public DateTime DataAbertura { get; set; }
+
+        public Multa (string valorMulta, DateTime dataAbertura)
         {
-            throw new NotImplementedException();
+            this.ValorMulta = valorMulta;
+            this.DataAbertura = dataAbertura;
+        }
+        public override void AtualizarRegistro(EntidadeBase novoregistro)
+        {
+            Multa novo = (Multa)novoregistro;
+
+            this.ValorMulta = novo.ValorMulta;          
+            this.DataAbertura = novo.DataAbertura;
         }
 
         public override List<string> Validar()

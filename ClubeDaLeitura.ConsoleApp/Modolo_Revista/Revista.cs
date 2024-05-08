@@ -11,10 +11,10 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
     {
         //Variaveis
         public string TituloRevista { get; set; }
-        public int NumeroEdicao { get; set; }
-        public int AnoRevista { get; set; }
+        public string NumeroEdicao { get; set; }
+        public string AnoRevista { get; set; }
         //Construtor
-        public Revista (string tituloRevista, int numeroEdicao, int anoRevista)
+        public Revista (string tituloRevista, string numeroEdicao, string anoRevista)
         {
             this.TituloRevista = tituloRevista;
             this.NumeroEdicao = numeroEdicao;
