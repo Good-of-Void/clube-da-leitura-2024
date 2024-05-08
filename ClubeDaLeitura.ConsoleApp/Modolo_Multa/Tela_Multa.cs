@@ -45,15 +45,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
 
         protected override EntidadeBase ObterRegistro()
         {
-            Console.Write("Digite o valor da multa: ");
-            string  valorMulta = Console.ReadLine();
-
-            Console.Write("Digite a data de abertura da multa: ");
-            DateTime dataAbertura = Convert.ToDateTime(Console.ReadLine());        
-
-            Multa novaMulta = new Multa(valorMulta, dataAbertura);
-
-            return novaMulta;
+            throw new NotImplementedException();
         }
     }
 }

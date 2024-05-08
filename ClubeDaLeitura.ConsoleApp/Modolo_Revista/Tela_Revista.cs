@@ -1,15 +1,14 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ClubeDaLeitura.ConsoleApp.Modolo_Caixa;
+using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
+
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
 {
     internal class Tela_Revista : TelaBase
     {
+        public Tela_Caixa tela_Caixa =  null;
+        public Repositorio_Caixa repositorio_Caixa = null;
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -21,8 +20,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -15} | {2, -15} | {3, -15}",
-                "Id", "Titulo revista", "Numero da edição", "Ano da revista"
+                "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -15}",
+                "Id", "Titulo revista", "Numero da edição", "Ano da revista", "Etiqueta da caixa"
             );
             List<EntidadeBase> revistas_Cadastradas = repositorio.SelecionarTodos();
 
@@ -32,8 +31,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -15} | {2, -15} | {3, -15}",
-                    revista.Id, revista.TituloRevista, revista.NumeroEdicao, revista.AnoRevista
+                    "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -15}",
+                    revista.Id, revista.TituloRevista, revista.NumeroEdicao, revista.AnoRevista, revista.Caixa.Etiqueta
                 );
             }
             Console.ReadLine();
@@ -50,7 +49,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Console.Write("Digite o ano de lançamento da revista: ");
             string anoRevista = Console.ReadLine();
 
-            Revista nova_Revista = new Revista(tituloRevista, numeroEdicao, anoRevista);
+            tela_Caixa.VisualizarRegistros(true);
+
+            Console.Write("Digite o id da caixa: ");
+            int id_Caixa = (int)Convert.ToUInt32(Console.ReadLine());
+
+            Caixa caixa_Selecionada = (Caixa)repositorio_Caixa.SelecionarPorId(id_Caixa);
+
+            Revista nova_Revista = new Revista(tituloRevista, numeroEdicao, anoRevista, caixa_Selecionada);
 
             return nova_Revista;
         }      
