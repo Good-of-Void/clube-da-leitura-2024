@@ -11,14 +11,16 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
     internal class Caixa : EntidadeBase
     {
         //Variaveis
+        public List<Revista> lista_Revista {  get; set; }
         public string Etiqueta {  get; set; }
         public string CorDaCaixa { get; set; }
-        public int QuantidadeDias { get; set; }       
-        public Caixa(string etiqueta, string cordaCaixa, int quantidadeDias, List<Revista> revistas_Pegas)
+        public int Dias_Max { get; set; }       
+        public Caixa(string etiqueta, string cordaCaixa, int quantidadeDias)
         {
             this.Etiqueta = etiqueta;
             this.CorDaCaixa = cordaCaixa;
-            this.QuantidadeDias = quantidadeDias;
+            this.Dias_Max = quantidadeDias;
+            this.lista_Revista = new List<Revista>();
         }
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
@@ -26,7 +28,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 
             this.Etiqueta = novo.Etiqueta;
             this.CorDaCaixa = novo.CorDaCaixa;
-            this.QuantidadeDias = novo.QuantidadeDias;
+            this.Dias_Max = novo.Dias_Max;
         }
 
         public override List<string> Validar()

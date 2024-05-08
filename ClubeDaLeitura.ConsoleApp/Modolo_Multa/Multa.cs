@@ -11,7 +11,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
     {
         //variaveis
         public string ValorMulta { get; set; }
-        public bool QuitarMulta { get; set; }
         public DateTime DataAbertura { get; set; }
 
         public Multa (string valorMulta, DateTime dataAbertura)

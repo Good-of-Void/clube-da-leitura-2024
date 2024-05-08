@@ -1,6 +1,9 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
+using ClubeDaLeitura.ConsoleApp.Modolo_Caixa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
+using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
+
 
 namespace ClubeDaLeitura.ConsoleApp
 {
@@ -25,6 +28,23 @@ namespace ClubeDaLeitura.ConsoleApp
             tela_Amigo.repositorio_Responsavel = repositorio_Responsavel;
             tela_Amigo.tela_Responsavel = tela_Responsavel;
 
+            //chamar módulo caixa
+            Repositorio_Caixa repositorio_Caixa = new Repositorio_Caixa();
+            Tela_Caixa tela_Caixa = new Tela_Caixa();
+
+            tela_Caixa.tipoEntidade = "Caixa";
+            tela_Caixa.repositorio = repositorio_Caixa;
+
+            //chamar modulo revista
+            Repositorio_Revista repositorio_Revista = new Repositorio_Revista();
+            Tela_Revista tela_Revista = new Tela_Revista();
+
+            tela_Revista.tipoEntidade = "Revista";
+            tela_Revista.repositorio= repositorio_Revista;
+
+            tela_Revista.tela_Caixa = tela_Caixa;
+            tela_Revista.repositorio_Caixa = repositorio_Caixa;
+            //
             while (true)
             {
                 char opcaoPrincipalEscolhida = TelaPrincipal.ApresentarMenuPrincipal();
@@ -38,7 +58,13 @@ namespace ClubeDaLeitura.ConsoleApp
                     tela = tela_Responsavel;
 
                 else if (opcaoPrincipalEscolhida == '2')
-                    tela = tela_Amigo;
+                    tela = tela_Amigo; 
+
+                else if (opcaoPrincipalEscolhida == '3')
+                    tela = tela_Caixa; 
+
+                else if (opcaoPrincipalEscolhida == '4')
+                    tela = tela_Revista;
 
                 char operacaoEscolhida = tela.ApresentarMenu();
 

@@ -1,14 +1,12 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
+using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 {
     internal class Tela_Caixa : TelaBase
-    {
-        public Tela_Revista tela_Revista = null;
-        public Repositorio_Revista repositorio_Revista = null;
+    {      
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -21,7 +19,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {2, -20}",
+                "{0, -10} | {1, -20} | {2, -20} | {3, -20}",
                 "Id", "Etiqueta", "Cor da caixa", "Quantidade de dias"
             );
 
@@ -33,8 +31,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20} | {2, -20}",
-                    caixa.Id, caixa.Etiqueta, caixa.CorDaCaixa, caixa.QuantidadeDias
+                    "{0, -10} | {1, -20} | {2, -20} | {3, -20}",
+                    caixa.Id, caixa.Etiqueta, caixa.CorDaCaixa, caixa.Dias_Max
                 );
             }
 
@@ -51,16 +49,9 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             string  cordaCaixa = Console.ReadLine();
 
             Console.Write("Digite a quantidade de dias de empréstimo: ");
-            int quantidadeDias = (int)Convert.ToUInt32(Console.ReadLine());
+            int quantidadeDias = (int)Convert.ToUInt32(Console.ReadLine());                
 
-            tela_Revista.VisualizarRegistros(false);
-
-            Console.Write("Digite o id da caixa: ");
-            int id_Caixa = (int)Convert.ToUInt32(Console.ReadLine());
-
-            Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);           
-
-            Caixa caixa = new Caixa(etiqueta, cordaCaixa, quantidadeDias, revista_Selecionada);
+            Caixa caixa = new Caixa(etiqueta, cordaCaixa, quantidadeDias);
 
             return caixa;
         }
