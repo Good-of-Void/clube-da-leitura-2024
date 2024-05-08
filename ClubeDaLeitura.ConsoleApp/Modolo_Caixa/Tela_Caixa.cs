@@ -1,6 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using ControleMedicamentos.ConsoleApp.Compartilhado;
 
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
