@@ -1,10 +1,5 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 {
@@ -13,7 +8,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
         //Variaveis
         public string Etiqueta {  get; set; }
         public string CorDaCaixa { get; set; }
-        public int QuantidadeDias { get; set; }       
+        public int QuantidadeDias { get; set; } 
         public Caixa(string etiqueta, string cordaCaixa, int quantidadeDias, List<Revista> revistas_Pegas)
         {
             this.Etiqueta = etiqueta;
