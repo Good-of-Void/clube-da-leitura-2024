@@ -1,0 +1,45 @@
+﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
+{
+    internal class Caixa : EntidadeBase
+    {
+        //Variaveis
+        public string Etiqueta {  get; set; }
+        public string CorDaCaixa { get; set; }
+        public int QuantidadeDias { get; set; }
+
+        public Caixa(string etiqueta, string cordaCaixa, int quantidadeDias)
+        {
+            this.Etiqueta = etiqueta;
+            this.CorDaCaixa = cordaCaixa;
+            this.QuantidadeDias = quantidadeDias;
+        }
+        public override void AtualizarRegistro(EntidadeBase novoegistro)
+        {
+            Caixa novo = (Caixa)novoegistro;
+
+            this.Etiqueta = novo.Etiqueta;
+            this.CorDaCaixa = novo.CorDaCaixa;
+            this.QuantidadeDias = novo.QuantidadeDias;
+        }
+
+        public override List<string> Validar()
+        {
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(Etiqueta.Trim()))
+                erros.Add("O campo \"Etiqueta\" é obrigatório");
+            
+            if (string.IsNullOrEmpty(CorDaCaixa.Trim()))
+                erros.Add("O campo \"Cor da Caixa\" é obrigatório");            
+         
+            return erros;
+        }
+    }
+}

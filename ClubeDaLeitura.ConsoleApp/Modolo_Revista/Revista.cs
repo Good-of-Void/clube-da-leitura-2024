@@ -9,14 +9,35 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
 {
     internal class Revista : EntidadeBase
     {
+        //Variaveis
+        public string TituloRevista { get; set; }
+        public int NumeroEdicao { get; set; }
+        public int AnoRevista { get; set; }
+        //Construtor
+        public Revista (string tituloRevista, int numeroEdicao, int anoRevista)
+        {
+            this.TituloRevista = tituloRevista;
+            this.NumeroEdicao = numeroEdicao;
+            this.AnoRevista = anoRevista;
+        }
+
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
-            throw new NotImplementedException();
+            Revista novo = (Revista)novoegistro;
+
+            this.TituloRevista = novo.TituloRevista;
+            this.NumeroEdicao = novo.NumeroEdicao;
+            this.AnoRevista = novo.AnoRevista;
         }
 
         public override List<string> Validar()
         {
-            throw new NotImplementedException();
+            List<string> erros = new List<string>();
+
+            if (string.IsNullOrEmpty(TituloRevista.Trim()))
+                erros.Add("O campo \"Titulo da revista\" é obrigatório");
+                
+            return erros;
         }
     }
 }
