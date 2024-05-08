@@ -13,6 +13,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Pessoa
         public string Nome { get; set; }
         public string Telefone { get; set; }
 
+
         //Responsavel por atualizar o registro       
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {                

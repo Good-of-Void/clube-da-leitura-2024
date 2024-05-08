@@ -19,11 +19,11 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
         public List<Revista> revistas_Pegas { get; set; }
 
         //Contrutor
-        public Amigo(string nome,string fone,Responsavel responsavel,Multa multa) {
+        public Amigo(string nome,string fone,Responsavel responsavel) {
             this.Nome = nome;
             this.Telefone = fone;
             this.Responsavel = responsavel;
-            this.Multa = multa;
+            this.Multa = null;
             this.revistas_Pegas = new List<Revista>();
         }
 
@@ -40,6 +40,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             this.Multa = novo.Multa;
         }
 
+        //Responsavel por tratar as entradas
         public override List<string> Validar()
         {
             List<string> erros = new List<string>();
@@ -47,7 +48,11 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             if (string.IsNullOrEmpty(Nome.Trim()))
                 erros.Add("O campo \"nome\" é obrigatório");
 
+            if (string.IsNullOrEmpty(Telefone.Trim()))
+                erros.Add("O campo \"telefone\" é obrigatório");
 
+            if (string.IsNullOrEmpty(Convert.ToString(Responsavel).Trim()))
+                erros.Add("O campo \"responsavel\" é obrigatório");
 
             return erros;
         }

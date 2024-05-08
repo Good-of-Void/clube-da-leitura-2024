@@ -1,4 +1,4 @@
-﻿namespace ControleMedicamentos.ConsoleApp.Compartilhado
+﻿namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
     internal abstract class TelaBase
     {

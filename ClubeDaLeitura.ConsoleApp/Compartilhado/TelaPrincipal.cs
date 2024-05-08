@@ -1,5 +1,5 @@
 ﻿
-namespace ControleMedicamentos.ConsoleApp.Compartilhado
+namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {   
     internal static class TelaPrincipal
     {
@@ -8,17 +8,17 @@ namespace ControleMedicamentos.ConsoleApp.Compartilhado
             Console.Clear();
 
             Console.WriteLine("----------------------------------------");
-            Console.WriteLine("|       Controle de Medicamentos       |");
+            Console.WriteLine("|           Clube de Leitura           |");
             Console.WriteLine("----------------------------------------");
 
             Console.WriteLine();
 
-            Console.WriteLine("1 - Cadastro de Pacientes");
-            Console.WriteLine("2 - Cadastro de Medicamentos");
-            Console.WriteLine("3 - Cadastro de Funcionário");
-            Console.WriteLine("4 - Cadastro de Fornecedores");
-            Console.WriteLine("5 - Cadastro de Requisições de Saída");
-            Console.WriteLine("6 - Cadastro de Requisições de Entrada");
+            Console.WriteLine("1 - Cadastro de Responsaveis");
+            Console.WriteLine("2 - Cadastro de Amigos");
+            Console.WriteLine("3 - Cadastro de ");
+            Console.WriteLine("4 - Cadastro de ");
+            Console.WriteLine("5 - Cadastro de ");
+            Console.WriteLine("6 - Cadastro de ");
 
             Console.WriteLine("S - Sair");
 
