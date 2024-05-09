@@ -111,7 +111,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
                     }
                 
-                emprestimo.Amigo.Multa.ValorMulta = multa;
+                emprestimo.Amigo.Multa.Valor_Multa = multa;
                 if(auxAtraso != 0)
                 {
                     this.atraso = "Sim";
