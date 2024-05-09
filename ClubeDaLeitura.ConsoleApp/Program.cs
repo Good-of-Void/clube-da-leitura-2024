@@ -1,6 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Caixa;
+using ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
 
@@ -44,6 +45,20 @@ namespace ClubeDaLeitura.ConsoleApp
 
             tela_Revista.tela_Caixa = tela_Caixa;
             tela_Revista.repositorio_Caixa = repositorio_Caixa;
+
+            //chamar modulo emprestimo
+            Repositorio_Emprestimo repositorio_Emprestimo = new Repositorio_Emprestimo();
+            Tela_Emprestimo tela_Emprestimo = new Tela_Emprestimo();
+
+            tela_Emprestimo.tipoEntidade = "Emprestimo";
+            tela_Emprestimo.repositorio = repositorio_Emprestimo;
+
+            tela_Emprestimo.tela_Amigo = tela_Amigo;
+            tela_Emprestimo.repositorio_Amigo = repositorio_Amigo;
+
+            tela_Emprestimo.tela_Revista= tela_Revista;
+            tela_Emprestimo.repositorio_Revista = repositorio_Revista;
+
             //
             while (true)
             {
@@ -65,6 +80,9 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 else if (opcaoPrincipalEscolhida == '4')
                     tela = tela_Revista;
+
+                else if (opcaoPrincipalEscolhida == '5')
+                    tela = tela_Emprestimo;
 
                 char operacaoEscolhida = tela.ApresentarMenu();
 

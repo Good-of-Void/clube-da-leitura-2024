@@ -20,19 +20,25 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -15}",
-                "Id", "Titulo revista", "Numero da edição", "Ano da revista", "Etiqueta da caixa"
+                "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -15}| {5, -15}",
+                "Id", "Titulo revista", "Numero da edição", "Ano da revista", "Etiqueta da caixa","Disponivel"
             );
             List<EntidadeBase> revistas_Cadastradas = repositorio.SelecionarTodos();
+            string disponivel;
 
             foreach (Revista revista in revistas_Cadastradas)
             {
-                if (revista == null)
-                    continue;
+                if (revista.Disponivel)
+                {
+                    disponivel = "Sim";
+                }else
+                {
+                    disponivel = "Não";
+                }
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -15}",
-                    revista.Id, revista.TituloRevista, revista.NumeroEdicao, revista.AnoRevista, revista.Caixa.Etiqueta
+                    revista.Id, revista.TituloRevista, revista.NumeroEdicao, revista.AnoRevista, revista.Caixa.Etiqueta,disponivel
                 );
             }
             Console.ReadLine();

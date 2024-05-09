@@ -8,5 +8,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 {
     internal class Repositorio_Emprestimo : RepositorioBase
     {
+         
     }
 }

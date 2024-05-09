@@ -10,10 +10,10 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
     internal class Multa : EntidadeBase
     {
         //variaveis
-        public string ValorMulta { get; set; }
+        public decimal ValorMulta { get; set; }
         public DateTime DataAbertura { get; set; }
 
-        public Multa (string valorMulta, DateTime dataAbertura)
+        public Multa (decimal valorMulta, DateTime dataAbertura)
         {
             this.ValorMulta = valorMulta;
             this.DataAbertura = dataAbertura;

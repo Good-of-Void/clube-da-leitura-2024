@@ -15,6 +15,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
         public string TituloRevista { get; set; }
         public string NumeroEdicao { get; set; }
         public string AnoRevista { get; set; }
+        public bool Disponivel {  get; set; } = true;
         //Construtor
         public Revista (string tituloRevista, string numeroEdicao, string anoRevista, Caixa caixa)
         {
