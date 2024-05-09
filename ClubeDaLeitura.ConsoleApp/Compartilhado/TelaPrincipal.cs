@@ -17,8 +17,9 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.WriteLine("2 - Cadastro de Amigos");
             Console.WriteLine("3 - Cadastro de Caixa");
             Console.WriteLine("4 - Cadastro de Revista");
-            Console.WriteLine("5 - Cadastro de reserva ");
-            Console.WriteLine("6 - Visualizar multas");
+            Console.WriteLine("5 - Cadastro de Emprestimo ");
+            Console.WriteLine("6 - Cadastro de Reserva ");
+            Console.WriteLine("7 - Visualizar multas");
 
             Console.WriteLine("S - Sair");
 
