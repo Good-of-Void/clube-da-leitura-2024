@@ -29,17 +29,18 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20} | {5, -20}",
-                "Id", "Nome", "Telefone", "Revistas em posse", "Multa", "Responsavel"
+                "Id", "Nome", "Telefone", "Revista em posse", "Multa", "Responsavel"
             );
 
             List<EntidadeBase> lista_Amigos = repositorio.SelecionarTodos();
 
             foreach (Amigo amigo in lista_Amigos)
             {
+               
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20} | {5, -20}",
-                    amigo.Id, amigo.Nome, amigo.Telefone, amigo.revistas_Pegas.Count,amigo.Multa, amigo.Responsavel.Nome
+                    amigo.Id, amigo.Nome, amigo.Telefone,amigo.revista_Pega,amigo.Multa, amigo.Responsavel.Nome
                 );
             }
 

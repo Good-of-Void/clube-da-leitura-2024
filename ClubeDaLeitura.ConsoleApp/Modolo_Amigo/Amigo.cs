@@ -16,7 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
         //Variaveis
         public Responsavel Responsavel { get; set; }
         public Multa Multa { get; set; }
-        public List<Revista> revistas_Pegas { get; set; }
+        public Revista revista_Pega { get; set; }
 
         //Contrutor
         public Amigo(string nome,string fone,Responsavel responsavel) {
@@ -24,7 +24,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             this.Telefone = fone;
             this.Responsavel = responsavel;
             this.Multa = null;
-            this.revistas_Pegas = new List<Revista>();
+            this.revista_Pega = null;
         }
 
         //metados

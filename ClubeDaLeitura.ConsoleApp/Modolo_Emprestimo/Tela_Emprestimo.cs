@@ -36,18 +36,28 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20} | {5, -20}",
-                "Id", "Amigo", "Data do Emprestimo", "N Revistas emprestadas", "Data Devolucao", "Atraso"
+                "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20}",
+                "Id", "Amigo", "Data do Emprestimo", "id Revista emprestada", "Atraso"
             );
 
             List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
 
             foreach (Emprestimo emprestimo in lista_Eprestimos)
             {
-                this.VerificarMulta(emprestimo);
+                //this.VerificarMulta(emprestimo);
+                TimeSpan diferenca = emprestimo.Devolucao.Subtract(DateTime.Now);
+                int dias = diferenca.Days;
+                if(dias > emprestimo.revista.Caixa.Dias_Max)
+                {
+                    this.atraso = "sim";
+                }
+                else
+                {
+                    this.atraso = "Não";
+                }
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20} | {5, -20}",
-                    emprestimo.Id, emprestimo.Amigo, emprestimo.Retirada, emprestimo.revistas_Selecionadas.Count, emprestimo.Devolucao, this.atraso
+                    "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20}",
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Retirada, emprestimo.revista.Id, this.atraso.ToString()
                 );
             }
 
@@ -57,9 +67,12 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
         protected override EntidadeBase ObterRegistro()
         {
-            List<Revista> lista_Revistas = new List<Revista>();
+            tela_Revista.VisualizarRegistros(true);
 
-            lista_Revistas = Revistas_Selecionadas();
+            Console.Write("Digite o id da revista: ");
+            int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
+
+            Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
 
             tela_Amigo.VisualizarRegistros(true);
 
@@ -68,12 +81,10 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
             Amigo amigo_Selecionado = (Amigo)repositorio_Amigo.SelecionarPorId(id_Amigo);
 
-
-
             Console.Write("Digite a data do emprestimo: ");
             DateTime retirada = Convert.ToDateTime(Console.ReadLine());
 
-            Emprestimo emprestimo = new Emprestimo(amigo_Selecionado,retirada,lista_Revistas);
+            Emprestimo emprestimo = new Emprestimo(amigo_Selecionado,retirada, revista_Selecionada);
 
             return emprestimo;
         }
@@ -82,13 +93,13 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
         {
             decimal multa = 0;
             int auxAtraso = 0;
+            Revista revista = emprestimo.revista;
+
             if (emprestimo.Devolucao != null)
             {
                 TimeSpan diferenca = emprestimo.Devolucao.Subtract(emprestimo.Retirada);
                 int dias = diferenca.Days;
 
-                foreach(Revista revista in emprestimo.revistas_Selecionadas)
-                {
                     if(revista.Caixa.Dias_Max < dias)
                     {
                         auxAtraso++;
@@ -99,7 +110,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                         }
 
                     }
-                }
+                
                 emprestimo.Amigo.Multa.ValorMulta = multa;
                 if(auxAtraso != 0)
                 {
@@ -111,47 +122,5 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                 }
             }
         }
-
-        private List<Revista> Revistas_Selecionadas()
-        {
-            List<Revista> carrinho = new List<Revista>();
-
-            while (true)
-            {
-                tela_Revista.VisualizarRegistros(true);
-
-                Console.Write("Digite o id da Revista desejada: ");
-                int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
-
-                if (carrinho.Count != 0)
-                {
-                    foreach (Revista revista in carrinho)
-                    {
-                        if (revista.Id != id_Revista)
-                        {
-                            Revista revista_Selecinada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
-                            carrinho.Add(revista_Selecinada);
-
-                        }
-                        else
-                        {
-                            Console.WriteLine("Não pode selecionar a mesma revista");
-                            break;
-                        }
-                    }
-                }
-                else
-                {
-                    Revista revista_Selecinada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
-                    carrinho.Add(revista_Selecinada);
-                }
-
-                Console.Write("quer add mais revista?(s/n)");
-                char continua = Convert.ToChar(Console.ReadLine());
-                if (continua == 'n' | continua == 'N') break;
-            }
-            return carrinho;
-        }
-
     }
 }
