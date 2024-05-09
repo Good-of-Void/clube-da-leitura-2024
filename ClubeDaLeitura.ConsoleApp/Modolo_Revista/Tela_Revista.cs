@@ -23,6 +23,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
                 "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -18}| {5, -15}",
                 "Id", "Titulo revista", "Numero da edição", "Ano da revista", "Etiqueta da caixa","Disponivel"
             );
+            
             List<EntidadeBase> revistas_Cadastradas = repositorio.SelecionarTodos();
             string disponivel;
 
