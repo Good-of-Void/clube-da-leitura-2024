@@ -35,7 +35,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
 
                 Console.WriteLine(
                     "{0, -10} | {1, -15} | {2, -15} |",
-                    multa.Id, multa.ValorMulta, multa.DataAbertura 
+                    multa.Id, multa.Valor_Multa, multa.Data_Abertura 
                 );
             }
 
