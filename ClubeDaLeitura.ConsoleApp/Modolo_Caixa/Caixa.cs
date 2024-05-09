@@ -9,7 +9,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
         public List<Revista> lista_Revista {  get; set; }
         public string Etiqueta {  get; set; }
         public string CorDaCaixa { get; set; }
-        public int Dias_Max { get; set; }       
+        public int Dias_Max { get; set; } 
+        //construtor
         public Caixa(string etiqueta, string cordaCaixa, int quantidadeDias)
         {
             this.Etiqueta = etiqueta;
@@ -17,6 +18,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             this.Dias_Max = quantidadeDias;
             this.lista_Revista = new List<Revista>();
         }
+        //atualizando os registros
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
             Caixa novo = (Caixa)novoegistro;
@@ -25,7 +27,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             this.CorDaCaixa = novo.CorDaCaixa;
             this.Dias_Max = novo.Dias_Max;
         }
-
+        //validando os inputs do usuário
         public override List<string> Validar()
         {
             List<string> erros = new List<string>();
@@ -34,7 +36,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
                 erros.Add("O campo \"Etiqueta\" é obrigatório");
             
             if (string.IsNullOrEmpty(CorDaCaixa.Trim()))
-                erros.Add("O campo \"Cor da Caixa\" é obrigatório");            
+                erros.Add("O campo \"Cor da Caixa\" é obrigatório");              
          
             return erros;
         }

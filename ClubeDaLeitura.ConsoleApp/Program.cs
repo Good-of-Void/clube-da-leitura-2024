@@ -2,6 +2,7 @@
 using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Caixa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo;
+using ClubeDaLeitura.ConsoleApp.Modolo_Reserva;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
 
@@ -59,6 +60,19 @@ namespace ClubeDaLeitura.ConsoleApp
             tela_Emprestimo.tela_Revista= tela_Revista;
             tela_Emprestimo.repositorio_Revista = repositorio_Revista;
 
+            //chamar modulo reserva
+            Repositorio_Reserva repositorio_Reserva = new Repositorio_Reserva();
+            Tela_Reserva tela_Reserva = new Tela_Reserva();
+
+            tela_Reserva.tipoEntidade = "Reserva";
+            tela_Reserva.repositorio = repositorio_Reserva;
+
+            tela_Reserva.tela_Amigo = tela_Amigo;
+            tela_Reserva.repositorio_Amigo = repositorio_Amigo;
+
+            tela_Reserva.tela_Revista = tela_Revista;
+            tela_Reserva.repositorio_Revista = repositorio_Revista;
+
             //
             while (true)
             {
@@ -83,6 +97,9 @@ namespace ClubeDaLeitura.ConsoleApp
 
                 else if (opcaoPrincipalEscolhida == '5')
                     tela = tela_Emprestimo;
+
+                else if (opcaoPrincipalEscolhida == '6')
+                    tela = tela_Reserva;
 
                 char operacaoEscolhida = tela.ApresentarMenu();
 
