@@ -1,7 +1,6 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using System.ComponentModel;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
 {
@@ -11,13 +10,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
         public Amigo Amigo {  get; set; }
         public Revista Revista { get; set; }
         public DateTime Data_Reserva { get; set; }
+        public bool Valido { get; set; } = true;
 
         //Construtor
-        public Reserva(Amigo amigo, Revista lista, DateTime data_Reserva)
+        public Reserva(Amigo amigo, Revista lista)
         {
             this.Amigo = amigo;
             this.Revista = lista;
-            this.Data_Reserva = data_Reserva;
+            this.Data_Reserva = DateTime.Now;
         }
         //atualizando as reservas
         public override void AtualizarRegistro(EntidadeBase novoegistro)
@@ -38,17 +38,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
 
             if (string.IsNullOrEmpty(Convert.ToString(Revista).Trim()))
                 erros.Add("O campo \"revistas\" é obrigatório");
-
-            if (string.IsNullOrEmpty(Convert.ToString(Data_Reserva).Trim()))
-                erros.Add("O campo \"data da reserva\" é obrigatório");
-
-            DateTime dateTime = DateTime.Now;
-            DateTime Data_auxiliar = Data_Reserva.Date;          
-            DateTime novaData = Data_auxiliar.AddDays(this.Revista.Caixa.Dias_Max);
-            if (novaData < dateTime)
-            {
-                erros.Add("A reserva já expirou");
-            }
 
             return erros;
         }

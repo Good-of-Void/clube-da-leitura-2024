@@ -15,7 +15,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
     {
         //Variaveis
         public Responsavel Responsavel { get; set; }
-        public Multa Multa { get; set; }
+        public decimal Multa { get; set; }
         public Revista revista_Pega { get; set; }
 
         //Contrutor
@@ -23,7 +23,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             this.Nome = nome;
             this.Telefone = fone;
             this.Responsavel = responsavel;
-            this.Multa = null;
+            this.Multa = 0;
             this.revista_Pega = null;
         }
 

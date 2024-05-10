@@ -4,6 +4,7 @@ using ClubeDaLeitura.ConsoleApp.Modolo_Caixa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
+using System.Globalization;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 {
@@ -33,16 +34,24 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20}",
-                "Id", "Amigo", "Revista");
+                "{0, -10} | {1, -20} | {2, -20}| {3, -20}",
+                "Id", "Amigo", "Revista","Valido");
 
             List<EntidadeBase> lista_Reserva = repositorio.SelecionarTodos();
-
+            string disponivel;
             foreach (Reserva reserva in lista_Reserva)
-            {               
+            {
+                if (this.Valido(reserva))
+                {
+                    disponivel = "Sim";
+                }
+                else
+                {
+                    disponivel = "Não";
+                }
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20}",
-                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo_Revista
+                    "{0, -10} | {1, -20} | {2, -20}| {3, -20}",
+                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo_Revista,disponivel.ToString()
                 );
             }
 
@@ -66,13 +75,22 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 
             Amigo amigo_Selecionado = (Amigo)repositorio_Amigo.SelecionarPorId(id_Amigo);
 
-            Console.Write("Digite a data da reserva: ");
-            DateTime retirada = Convert.ToDateTime(Console.ReadLine());
-
-            Reserva Reserva = new Reserva(amigo_Selecionado, revista_Selecionada, retirada);
+            Reserva Reserva = new Reserva(amigo_Selecionado, revista_Selecionada);
 
             return Reserva;
         
+        }
+        
+        private bool Valido(Reserva reserva)
+        {
+            DateTime dataMax = (reserva.Data_Reserva.AddDays(reserva.Revista.Caixa.Dias_Max));
+            if (dataMax > DateTime.Now)
+            {
+                return false;
+            }else
+            {
+                return true;
+            }
         }
     }
 }

@@ -14,21 +14,37 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
     {
         //Variaveis
         public Amigo Amigo {  get; set; }
-        public Revista revista { get; set; }
+        public Revista Revista { get; set; }
         public DateTime Retirada { get; set; }
         public DateTime Devolucao { get; set; }
+        public bool Estado { get; set; }
 
-        //Contrutor
-        public Emprestimo(Amigo amigo,DateTime retirada,Revista lista)
+        //Contrutor para cadastro
+        public Emprestimo(Amigo amigo,Revista revista)
         {
             this.Amigo = amigo;
-            this.Retirada = retirada;
-            this.revista = lista;
+            this.Retirada = DateTime.Now;
+            this.Revista = revista;
+            this.Estado = true;
         }
-        
+
+        //construtor para a devolucao
+        public Emprestimo(Amigo amigo, Revista revista, DateTime retirada, DateTime devolucao, bool estado)
+        {
+            Amigo = amigo;
+            this.Revista = revista;
+            Retirada = retirada;
+            Devolucao = devolucao;
+            Estado = estado;
+        }
+
+
+
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
-            throw new NotImplementedException();
+            Emprestimo emprestimo_novo = (Emprestimo)novoegistro;
+
+            this.Devolucao = emprestimo_novo.Devolucao;
         }
 
         public override List<string> Validar()
@@ -40,22 +56,25 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                 erros.Add("O campo \"Amigo\" é obrigatório");
             
 
-            if (string.IsNullOrEmpty(Convert.ToString(revista).Trim()))
+            if (string.IsNullOrEmpty(Convert.ToString(Revista).Trim()))
                 erros.Add("O campo \"revistas\" é obrigatório");
 
-            if (revista.Disponivel == true)
-            {
-                revista.Disponivel = false;
-            }else 
-                erros.Add("O campo \"revistas\" tem que estar disponivel");
+            if (Revista.Disponivel != true)
+                 erros.Add("O campo \"revistas\" tem que estar disponivel");
 
             if(this.Amigo.revista_Pega != null)
                 erros.Add("O amigo não pode ter mais que uma revista emprestada");
 
-            if (string.IsNullOrEmpty(Convert.ToString(Retirada).Trim()))
-                erros.Add("O campo \"data do Emprestimo\" é obrigatório");
+            if (this.Amigo.Multa > 0)
+                erros.Add("O amigo tem multa a pagar");
 
-            this.Amigo.revista_Pega = this.revista;
+            if (erros.Count == 0)
+            {
+                this.Amigo.revista_Pega = this.Revista;
+                Revista.Disponivel = false;
+                //this.AplicarMulta();
+            }
+            
             return erros;
 
         }

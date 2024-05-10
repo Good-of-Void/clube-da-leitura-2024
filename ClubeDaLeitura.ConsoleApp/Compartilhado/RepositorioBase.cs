@@ -47,7 +47,7 @@
             return false;
         }
 
-        public List<EntidadeBase> SelecionarTodos()
+    public List<EntidadeBase> SelecionarTodos()
         {
             return registros;
         }
@@ -88,6 +88,8 @@
         {
             registros.Add(novoRegistro);
         }
-    }
+
+    
+}
 
 

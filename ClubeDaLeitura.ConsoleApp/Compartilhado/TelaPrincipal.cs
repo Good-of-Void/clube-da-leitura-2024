@@ -19,7 +19,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.WriteLine("4 - Cadastro de Revista");
             Console.WriteLine("5 - Cadastro de Emprestimo ");
             Console.WriteLine("6 - Cadastro de Reserva ");
-            Console.WriteLine("7 - Visualizar multas");
+            Console.WriteLine("7 - Multas em aberto");
 
             Console.WriteLine("S - Sair");
 

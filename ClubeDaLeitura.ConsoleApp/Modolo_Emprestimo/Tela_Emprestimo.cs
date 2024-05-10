@@ -3,12 +3,6 @@ using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Pessoa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 {
@@ -22,7 +16,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
         public Tela_Amigo tela_Amigo = null;
         public Repositorio_Amigo repositorio_Amigo = null;
 
-        private string atraso;
+        private string estado;
 
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -36,8 +30,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             Console.WriteLine();
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20}",
-                "Id", "Amigo", "Data do Emprestimo", "id Revista emprestada", "Atraso"
+                "{0, -10} | {1, -20} | {2, -25} | {3, -25} | {4, -25} | {5, -25}",
+                "Id", "Amigo","id Revista emprestada","Data do Emprestimo","Data da Devolução" ,"Aberto"
             );
 
             List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
@@ -47,17 +41,18 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                 //this.VerificarMulta(emprestimo);
                 TimeSpan diferenca = emprestimo.Devolucao.Subtract(DateTime.Now);
                 int dias = diferenca.Days;
-                if(dias > emprestimo.revista.Caixa.Dias_Max)
+                if(emprestimo.Estado)
                 {
-                    this.atraso = "sim";
+                    this.estado = "sim";
                 }
                 else
                 {
-                    this.atraso = "Não";
+                    this.estado = "Não";
                 }
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -20} | {3, -23} | {4, -20}",
-                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Retirada, emprestimo.revista.Id, this.atraso.ToString()
+                    "{0, -10} | {1, -20} | {2, -25} | {3, -25} | {4, -25} | {5, -25}",
+                    emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Id,emprestimo.Retirada,
+                    emprestimo.Devolucao, this.estado.ToString()
                 );
             }
 
@@ -67,12 +62,12 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
         protected override EntidadeBase ObterRegistro()
         {
-            tela_Revista.VisualizarRegistros(true);
+                tela_Revista.VisualizarRegistros(true);
 
-            Console.Write("Digite o id da revista: ");
-            int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
+                Console.Write("Digite o id da revista: ");
+                int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
 
-            Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
+                Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
 
             tela_Amigo.VisualizarRegistros(true);
 
@@ -81,46 +76,10 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
             Amigo amigo_Selecionado = (Amigo)repositorio_Amigo.SelecionarPorId(id_Amigo);
 
-            Console.Write("Digite a data do emprestimo: ");
-            DateTime retirada = Convert.ToDateTime(Console.ReadLine());
+            Emprestimo emprestimo = new Emprestimo(amigo_Selecionado, revista_Selecionada);
 
-            Emprestimo emprestimo = new Emprestimo(amigo_Selecionado,retirada, revista_Selecionada);
+                return emprestimo;
 
-            return emprestimo;
-        }
-
-        private void VerificarMulta(Emprestimo emprestimo)
-        {
-            decimal multa = 0;
-            int auxAtraso = 0;
-            Revista revista = emprestimo.revista;
-
-            if (emprestimo.Devolucao != null)
-            {
-                TimeSpan diferenca = emprestimo.Devolucao.Subtract(emprestimo.Retirada);
-                int dias = diferenca.Days;
-
-                    if(revista.Caixa.Dias_Max < dias)
-                    {
-                        auxAtraso++;
-                        multa += 10;
-                        for(int i = 1;i <= dias; i++)
-                        {
-                            multa += 2;
-                        }
-
-                    }
-                
-                emprestimo.Amigo.Multa.Valor_Multa = multa;
-                if(auxAtraso != 0)
-                {
-                    this.atraso = "Sim";
-                }
-                else
-                {
-                    this.atraso = "Não";
-                }
-            }
         }
     }
 }
