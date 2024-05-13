@@ -13,14 +13,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
     internal class Emprestimo : EntidadeBase
     {
         //Variaveis
-        public Amigo Amigo {  get; set; }
+        public Amigo Amigo { get; set; }
         public Revista Revista { get; set; }
         public DateTime Retirada { get; set; }
         public DateTime Devolucao { get; set; }
         public bool Estado { get; set; }
 
         //Contrutor para cadastro
-        public Emprestimo(Amigo amigo,Revista revista)
+        public Emprestimo(Amigo amigo, Revista revista)
         {
             this.Amigo = amigo;
             this.Retirada = DateTime.Now;
@@ -54,15 +54,15 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 
             if (string.IsNullOrEmpty(Convert.ToString(Amigo).Trim()))
                 erros.Add("O campo \"Amigo\" é obrigatório");
-            
+
 
             if (string.IsNullOrEmpty(Convert.ToString(Revista).Trim()))
                 erros.Add("O campo \"revistas\" é obrigatório");
 
             if (Revista.Disponivel != true)
-                 erros.Add("O campo \"revistas\" tem que estar disponivel");
+                erros.Add("O campo \"revistas\" tem que estar disponivel");
 
-            if(this.Amigo.revista_Pega != null)
+            if (this.Amigo.revista_Pega != null)
                 erros.Add("O amigo não pode ter mais que uma revista emprestada");
 
             if (this.Amigo.Multa > 0)
@@ -74,7 +74,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                 Revista.Disponivel = false;
                 //this.AplicarMulta();
             }
-            
+
             return erros;
 
         }

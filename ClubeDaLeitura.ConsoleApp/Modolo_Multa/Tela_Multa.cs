@@ -14,7 +14,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
         //para buscar o amigo ja cadastrado
         public Tela_Amigo tela_Amigo = new Tela_Amigo();
         public Repositorio_Amigo repositorio_Amigo = new Repositorio_Amigo();
-    public override void VisualizarRegistros(bool exibirTitulo)
+        public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
             {
@@ -50,6 +50,29 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Multa
         protected override EntidadeBase ObterRegistro()
         {
             throw new NotImplementedException();
+        }
+
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Quitar {tipoEntidade}");
+            Console.WriteLine($"2 - Visualizar {tipoEntidade}s");
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
         }
     }
 }

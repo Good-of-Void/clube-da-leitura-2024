@@ -7,7 +7,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
     internal class Reserva : EntidadeBase
     {
         //variaveis
-        public Amigo Amigo {  get; set; }
+        public Amigo Amigo { get; set; }
         public Revista Revista { get; set; }
         public DateTime Data_Reserva { get; set; }
         public bool Valido { get; set; } = true;

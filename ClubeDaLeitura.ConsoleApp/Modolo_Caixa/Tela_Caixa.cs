@@ -6,7 +6,7 @@ using ClubeDaLeitura.ConsoleApp.Compartilhado;
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 {
     internal class Tela_Caixa : TelaBase
-    {      
+    {
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -46,10 +46,10 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             string etiqueta = Console.ReadLine();
 
             Console.Write("Digite a cor da caixa: ");
-            string  cordaCaixa = Console.ReadLine();
+            string cordaCaixa = Console.ReadLine();
 
             Console.Write("Digite a quantidade de dias de empréstimo: ");
-            int quantidadeDias = (int)Convert.ToUInt32(Console.ReadLine());                
+            int quantidadeDias = (int)Convert.ToUInt32(Console.ReadLine());
 
             Caixa caixa = new Caixa(etiqueta, cordaCaixa, quantidadeDias);
 

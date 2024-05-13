@@ -12,7 +12,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
     internal class Responsavel : Pessoa
     {
         //Construtor
-        public Responsavel(string nome,string telefone) 
+        public Responsavel(string nome, string telefone)
         {
             this.Nome = nome;
             this.Telefone = telefone;

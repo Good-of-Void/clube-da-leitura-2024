@@ -9,7 +9,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
         public string tipoEntidade = "";
         public RepositorioBase repositorio = null;
 
-        public char ApresentarMenu()
+        public virtual char ApresentarMenu()
         {
             Console.Clear();
 
@@ -23,54 +23,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.WriteLine($"2 - Editar {tipoEntidade}");
             Console.WriteLine($"3 - Excluir {tipoEntidade}");
             Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
-
-            Console.WriteLine("S - Voltar");
-
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
-
-            return operacaoEscolhida;
-        }
-
-        public char ApresentarMenu2()
-        {
-            Console.Clear();
-
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
-            Console.WriteLine("----------------------------------------");
-
-            Console.WriteLine();
-
-            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
-            Console.WriteLine($"2 - Concluir o {tipoEntidade}");
-            Console.WriteLine($"3 - Excluir {tipoEntidade}");
-            Console.WriteLine($"4 - Visualizar {tipoEntidade}s");
-
-            Console.WriteLine("S - Voltar");
-
-            Console.WriteLine();
-
-            Console.Write("Escolha uma das opções: ");
-            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
-
-            return operacaoEscolhida;
-        }
-
-        public char ApresentarMenuMultas()
-        {
-            Console.Clear();
-
-            Console.WriteLine("----------------------------------------");
-            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
-            Console.WriteLine("----------------------------------------");
-
-            Console.WriteLine();
-
-            Console.WriteLine($"1 - Quitar {tipoEntidade}");
-            Console.WriteLine($"2 - Visualizar {tipoEntidade}s");
 
             Console.WriteLine("S - Voltar");
 
@@ -227,7 +179,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             bool estado = emprestimo.Estado;
 
-            EntidadeBase emprestimo_Novo = new Emprestimo(amigo,revista,retirada,devolucao,estado);
+            EntidadeBase emprestimo_Novo = new Emprestimo(amigo, revista, retirada, devolucao, estado);
             return emprestimo_Novo;
         }
 
@@ -265,7 +217,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
                     ExibirMensagem($"O {tipoEntidade} foi editado com sucesso!", ConsoleColor.Green);
                     return;
                 }
-            }            
+            }
         }
 
         public void Quitar()
@@ -283,9 +235,9 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
             EntidadeBase entidade;
-            foreach(Amigo amigo in lista_Eprestimos)
+            foreach (Amigo amigo in lista_Eprestimos)
             {
-                if(idEntidadeEscolhida == amigo.Id)
+                if (idEntidadeEscolhida == amigo.Id)
                 {
                     amigo.Multa = 0;
                     break;

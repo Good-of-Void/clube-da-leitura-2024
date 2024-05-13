@@ -9,7 +9,7 @@ using System.Globalization;
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 {
     internal class Tela_Reserva : TelaBase
-    {      
+    {
         //para buscar as revistas ja cadastradas
         public Tela_Revista tela_Revista = null;
         public Repositorio_Revista repositorio_Revista = null;
@@ -21,7 +21,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
         //chamando tela emprestimo
         public Tela_Emprestimo tele_Emprestimo = null;
         public Repositorio_Emprestimo repositorio_Emprestimo = null;
-        
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -35,7 +35,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 
             Console.WriteLine(
                 "{0, -10} | {1, -20} | {2, -20}| {3, -20}",
-                "Id", "Amigo", "Revista","Valido");
+                "Id", "Amigo", "Revista", "Valido");
 
             List<EntidadeBase> lista_Reserva = repositorio.SelecionarTodos();
             string disponivel;
@@ -51,7 +51,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
                 }
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20}| {3, -20}",
-                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo_Revista,disponivel.ToString()
+                    reserva.Id, reserva.Amigo.Nome, reserva.Revista.Titulo_Revista, disponivel.ToString()
                 );
             }
 
@@ -78,19 +78,43 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
             Reserva Reserva = new Reserva(amigo_Selecionado, revista_Selecionada);
 
             return Reserva;
-        
+
         }
-        
+
         private bool Valido(Reserva reserva)
         {
             DateTime dataMax = (reserva.Data_Reserva.AddDays(reserva.Revista.Caixa.Dias_Max));
             if (dataMax > DateTime.Now)
             {
                 return false;
-            }else
+            }
+            else
             {
                 return true;
             }
+        }
+        public override char ApresentarMenu()
+        {
+            Console.Clear();
+
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine($"        Gestão de {tipoEntidade}s        ");
+            Console.WriteLine("----------------------------------------");
+
+            Console.WriteLine();
+
+            Console.WriteLine($"1 - Cadastrar {tipoEntidade}");
+            Console.WriteLine($"2 - Concluir o {tipoEntidade}");
+            Console.WriteLine($"3 - Visualizar {tipoEntidade}s");
+
+            Console.WriteLine("S - Voltar");
+
+            Console.WriteLine();
+
+            Console.Write("Escolha uma das opções: ");
+            char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
+
+            return operacaoEscolhida;
         }
     }
 }

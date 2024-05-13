@@ -1,95 +1,95 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
-    internal abstract class RepositorioBase
+internal abstract class RepositorioBase
+{
+    protected List<EntidadeBase> registros = new List<EntidadeBase>();
+
+    protected int contadorId = 1;
+
+    public void Cadastrar(EntidadeBase novoRegistro)
     {
-        protected List<EntidadeBase> registros = new List<EntidadeBase>();
+        novoRegistro.Id = contadorId++;
 
-        protected int contadorId = 1;
+        RegistrarItem(novoRegistro);
+    }
 
-        public void Cadastrar(EntidadeBase novoRegistro)
+    public bool Editar(int id, EntidadeBase novaEntidade)
+    {
+        novaEntidade.Id = id;
+
+        foreach (EntidadeBase entidade in registros)
         {
-            novoRegistro.Id = contadorId++;
+            if (entidade == null)
+                continue;
 
-            RegistrarItem(novoRegistro);
-        }
-
-        public bool Editar(int id, EntidadeBase novaEntidade)
-        {
-            novaEntidade.Id = id;
-
-            foreach (EntidadeBase entidade in registros)
+            else if (entidade.Id == id)
             {
-                if (entidade == null)
-                    continue;
+                entidade.AtualizarRegistro(novaEntidade);
 
-                else if (entidade.Id == id)
-                {
-                    entidade.AtualizarRegistro(novaEntidade);
-
-                    return true;
-                }
+                return true;
             }
-
-            return false;
         }
 
-        public bool Excluir(int id)
+        return false;
+    }
+
+    public bool Excluir(int id)
+    {
+        foreach (var registro in registros)
         {
-            foreach (var registro in registros)
+            if (registro.Id == id)
             {
-                if (registro.Id == id)
-                {
-                    registros.Remove(registro);
-                    return true;
-                }
+                registros.Remove(registro);
+                return true;
             }
-
-            return false;
         }
+
+        return false;
+    }
 
     public List<EntidadeBase> SelecionarTodos()
+    {
+        return registros;
+    }
+
+    public EntidadeBase SelecionarPorId(int id)
+    {
+        foreach (var registro in registros)
         {
-            return registros;
+            EntidadeBase e = registro;
+
+            if (e == null)
+                continue;
+
+            else if (e.Id == id)
+                return e;
         }
 
-        public EntidadeBase SelecionarPorId(int id)
+        return null;
+    }
+
+    public bool Existe(int id)
+    {
+        foreach (var registro in registros)
         {
-            foreach(var registro in registros)
-            {
-                EntidadeBase e = registro;
+            EntidadeBase e = registro;
 
-                if (e == null)
-                    continue;
+            if (e == null)
+                continue;
 
-                else if (e.Id == id)
-                    return e;
-            }
-
-            return null;
+            else if (e.Id == id)
+                return true;
         }
 
-        public bool Existe(int id)
-        {
-            foreach (var registro in registros)
-            {
-                EntidadeBase e = registro;
+        return false;
+    }
 
-                if (e == null)
-                    continue;
+    protected void RegistrarItem(EntidadeBase novoRegistro)
+    {
+        registros.Add(novoRegistro);
+    }
 
-                else if (e.Id == id)
-                    return true;
-            }
 
-            return false;
-        }
-
-        protected void RegistrarItem(EntidadeBase novoRegistro)
-        {
-            registros.Add(novoRegistro);
-        }
-
-    
 }
 
 

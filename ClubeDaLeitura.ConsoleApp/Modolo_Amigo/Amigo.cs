@@ -19,7 +19,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
         public Revista revista_Pega { get; set; }
 
         //Contrutor
-        public Amigo(string nome,string fone,Responsavel responsavel) {
+        public Amigo(string nome, string fone, Responsavel responsavel)
+        {
             this.Nome = nome;
             this.Telefone = fone;
             this.Responsavel = responsavel;
@@ -32,8 +33,8 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
         //responsavel por fazer a edição do objeto ja criado
         public override void AtualizarRegistro(EntidadeBase novoegistro)
         {
-           Amigo novo = (Amigo)novoegistro;
-            
+            Amigo novo = (Amigo)novoegistro;
+
             this.Nome = novo.Nome;
             this.Telefone = novo.Telefone;
             this.Responsavel = novo.Responsavel;

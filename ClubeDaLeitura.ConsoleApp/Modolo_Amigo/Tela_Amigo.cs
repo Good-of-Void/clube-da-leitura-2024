@@ -38,7 +38,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             {
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -20} | {3, -20} | {4, -20} | {5, -20}",
-                    amigo.Id, amigo.Nome, amigo.Telefone,amigo.revista_Pega,amigo.Multa, amigo.Responsavel.Nome
+                    amigo.Id, amigo.Nome, amigo.Telefone, amigo.revista_Pega, amigo.Multa, amigo.Responsavel.Nome
                 );
             }
 

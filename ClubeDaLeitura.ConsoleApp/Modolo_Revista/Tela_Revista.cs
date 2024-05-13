@@ -7,7 +7,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
 {
     internal class Tela_Revista : TelaBase
     {
-        public Tela_Caixa tela_Caixa =  null;
+        public Tela_Caixa tela_Caixa = null;
         public Repositorio_Caixa repositorio_Caixa = null;
         public override void VisualizarRegistros(bool exibirTitulo)
         {
@@ -66,6 +66,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Revista nova_Revista = new Revista(tituloRevista, numeroEdicao, anoRevista, caixa_Selecionada);
 
             return nova_Revista;
-        }      
+        }
     }
 }
