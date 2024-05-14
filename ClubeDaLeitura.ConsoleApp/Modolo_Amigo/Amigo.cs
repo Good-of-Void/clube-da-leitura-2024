@@ -1,13 +1,7 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.Modolo_Multa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Pessoa;
 using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
 {
@@ -15,8 +9,40 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
     {
         //Variaveis
         public Responsavel Responsavel { get; set; }
-        public decimal Multa { get; set; }
-        public Revista revista_Pega { get; set; }
+        public Revista Revista_Pega { get; set; }
+        public List<Multa> Multas { get; set; }
+        public bool TemMulta
+        { get
+            {
+                for (int i = 0; i < Multas.Count; i++)
+                {
+                    Multa multa = (Multa)Multas[i];
+
+                    if (!multa.Paga)
+                        return true;
+                }
+
+                return false;
+            } 
+        }
+
+        public decimal ValorMulta
+        {
+            get
+            {
+                decimal valor = 0;
+
+                for (int i = 0; i < Multas.Count; i++)
+                {
+                    Multa multa = (Multa)Multas[i];
+
+                    if (!multa.Paga)
+                        valor += multa.Valor;
+                }
+
+                return valor;
+            }
+        }
 
         //Contrutor
         public Amigo(string nome, string fone, Responsavel responsavel)
@@ -24,8 +50,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             this.Nome = nome;
             this.Telefone = fone;
             this.Responsavel = responsavel;
-            this.Multa = 0;
-            this.revista_Pega = null;
         }
 
         //metados
@@ -38,7 +62,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
             this.Nome = novo.Nome;
             this.Telefone = novo.Telefone;
             this.Responsavel = novo.Responsavel;
-            this.Multa = novo.Multa;
         }
 
         //Responsavel por tratar as entradas
@@ -56,6 +79,22 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Amigo
                 erros.Add("O campo \"responsavel\" é obrigatório");
 
             return erros;
+        }
+
+        public void Multar(Multa multa)
+        {
+            Multas.Add(multa);
+        }
+
+        public void PagarMultas()
+        {
+            for (int i = 0; i < Multas.Count; i++)
+            {
+                Multa multa = (Multa)Multas[i];
+
+                if (!multa.Paga)
+                    multa.Pagar();
+            }
         }
     }
 }

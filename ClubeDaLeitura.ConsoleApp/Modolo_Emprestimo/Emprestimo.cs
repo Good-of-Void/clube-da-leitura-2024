@@ -55,25 +55,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             if (string.IsNullOrEmpty(Convert.ToString(Amigo).Trim()))
                 erros.Add("O campo \"Amigo\" é obrigatório");
 
-
             if (string.IsNullOrEmpty(Convert.ToString(Revista).Trim()))
                 erros.Add("O campo \"revistas\" é obrigatório");
 
             if (Revista.Disponivel != true)
                 erros.Add("O campo \"revistas\" tem que estar disponivel");
 
-            if (this.Amigo.revista_Pega != null)
+            if (this.Amigo.Revista_Pega != null)
                 erros.Add("O amigo não pode ter mais que uma revista emprestada");
-
-            if (this.Amigo.Multa > 0)
-                erros.Add("O amigo tem multa a pagar");
-
-            if (erros.Count == 0)
-            {
-                this.Amigo.revista_Pega = this.Revista;
-                Revista.Disponivel = false;
-                //this.AplicarMulta();
-            }
 
             return erros;
 

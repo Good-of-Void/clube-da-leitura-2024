@@ -8,8 +8,13 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
 {
-    internal class Tela_Responsavel : TelaBase
+    internal class Tela_Responsavel : TelaBase<Responsavel>,ITelaCadastros
     {
+        public char ApresetarMenu()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -26,7 +31,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
                 "Id", "Nome", "Telefone"
             );
 
-            List<EntidadeBase> lista_Resposveis = repositorio.SelecionarTodos();
+            List<Responsavel> lista_Resposveis = repositorio.SelecionarTodos();
 
             foreach (Responsavel responsavel in lista_Resposveis)
             {
@@ -41,7 +46,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
             Console.WriteLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Responsavel ObterRegistro()
         {
             Console.Write("Digite o nome: ");
             string nome = Console.ReadLine();
@@ -49,7 +54,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
             Console.Write("Digite o telefone: ");
             string telefone = Console.ReadLine();
 
-            EntidadeBase responsavel = new Responsavel(nome, telefone);
+            Responsavel responsavel = new Responsavel(nome, telefone);
 
             return responsavel;
         }

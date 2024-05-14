@@ -5,10 +5,16 @@ using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
 {
-    internal class Tela_Revista : TelaBase
+    internal class Tela_Revista : TelaBase<Revista>, ITelaCadastros
     {
         public Tela_Caixa tela_Caixa = null;
         public Repositorio_Caixa repositorio_Caixa = null;
+
+        public char ApresetarMenu()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -23,19 +29,13 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
              "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -18}| {5, -15}",
              "Id", "Titulo revista", "Numero da edição", "Ano da revista", "Etiqueta da caixa", "Disponivel"
          );
-            List<EntidadeBase> revistas_Cadastradas = repositorio.SelecionarTodos();
+            List<Revista> revistas_Cadastradas = repositorio.SelecionarTodos();
             string disponivel;
 
             foreach (Revista revista in revistas_Cadastradas)
             {
-                if (revista.Disponivel)
-                {
-                    disponivel = "Sim";
-                }
-                else
-                {
-                    disponivel = "Não";
-                }
+                if (revista.Disponivel) disponivel = "Sim";
+                else disponivel = "Não";
 
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -18} | {3, -15} | {4, -18}| {5, -15}",
@@ -45,7 +45,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Console.ReadLine();
             Console.WriteLine();
         }
-        protected override EntidadeBase ObterRegistro()
+        protected override Revista ObterRegistro()
         {
             Console.Write("Digite o título da revista: ");
             string tituloRevista = Console.ReadLine();
@@ -61,7 +61,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
             Console.Write("Digite o id da caixa: ");
             int id_Caixa = (int)Convert.ToUInt32(Console.ReadLine());
 
-            Caixa caixa_Selecionada = (Caixa)repositorio_Caixa.SelecionarPorId(id_Caixa);
+            Caixa caixa_Selecionada = repositorio_Caixa.SelecionarPorId(id_Caixa);
 
             Revista nova_Revista = new Revista(tituloRevista, numeroEdicao, anoRevista, caixa_Selecionada);
 

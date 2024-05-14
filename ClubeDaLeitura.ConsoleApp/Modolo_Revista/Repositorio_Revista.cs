@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Revista
 {
-    internal class Repositorio_Revista : RepositorioBase
+    internal class Repositorio_Revista : RepositorioBase<Revista>
     {
     }
 }

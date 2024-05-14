@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 {
-    internal class Repositorio_Caixa : RepositorioBase
+    internal class Repositorio_Caixa : RepositorioBase<Caixa>
     {
     }
 }

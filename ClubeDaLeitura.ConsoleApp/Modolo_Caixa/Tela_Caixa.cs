@@ -1,12 +1,15 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Compartilhado;
-using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
-using ClubeDaLeitura.ConsoleApp.Compartilhado;
 
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
 {
-    internal class Tela_Caixa : TelaBase
+    internal class Tela_Caixa : TelaBase<Caixa>, ITelaCadastros 
     {
+        public char ApresetarMenu()
+        {
+            throw new NotImplementedException();
+        }
+
         public override void VisualizarRegistros(bool exibirTitulo)
         {
             if (exibirTitulo)
@@ -23,7 +26,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
                 "Id", "Etiqueta", "Cor da caixa", "Quantidade de dias"
             );
 
-            List<EntidadeBase> caixa_Cadastrados = repositorio.SelecionarTodos();
+            List<Caixa> caixa_Cadastrados = repositorio.SelecionarTodos();
 
             foreach (Caixa caixa in caixa_Cadastrados)
             {
@@ -40,7 +43,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Caixa
             Console.WriteLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Caixa ObterRegistro()
         {
             Console.Write("Digite a etiqueda: ");
             string etiqueta = Console.ReadLine();

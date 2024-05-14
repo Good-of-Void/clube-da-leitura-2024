@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Responsavel
 {
-    internal class Repositorio_Responsavel : RepositorioBase
+    internal class Repositorio_Responsavel : RepositorioBase<Responsavel>
     {
     }
 }

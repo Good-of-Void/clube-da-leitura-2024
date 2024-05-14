@@ -6,7 +6,7 @@ using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
 {
-    internal class Tela_Emprestimo : TelaBase
+    internal class Tela_Emprestimo : TelaBase<Emprestimo>,ITelaCadastros
     {
         //para buscar as revistas ja cadastrado
         public Tela_Revista tela_Revista = null;
@@ -34,21 +34,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
                 "Id", "Amigo", "id Revista emprestada", "Data do Emprestimo", "Data da Devolução", "Aberto"
             );
 
-            List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
+            List<Emprestimo> lista_Eprestimos = repositorio.SelecionarTodos();
 
             foreach (Emprestimo emprestimo in lista_Eprestimos)
             {
-                //this.VerificarMulta(emprestimo);
-                TimeSpan diferenca = emprestimo.Devolucao.Subtract(DateTime.Now);
-                int dias = diferenca.Days;
-                if (emprestimo.Estado)
-                {
-                    this.estado = "sim";
-                }
-                else
-                {
-                    this.estado = "Não";
-                }
+                
+                if (emprestimo.Estado) this.estado = "sim";
+                else this.estado = "Não";
+
                 Console.WriteLine(
                     "{0, -10} | {1, -20} | {2, -25} | {3, -25} | {4, -25} | {5, -25}",
                     emprestimo.Id, emprestimo.Amigo.Nome, emprestimo.Revista.Id, emprestimo.Retirada,
@@ -60,14 +53,14 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             Console.WriteLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Emprestimo ObterRegistro()
         {
             tela_Revista.VisualizarRegistros(true);
 
             Console.Write("Digite o id da revista: ");
             int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
 
-            Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
+            Revista revista_Selecionada = repositorio_Revista.SelecionarPorId(id_Revista);
 
             tela_Amigo.VisualizarRegistros(true);
 
@@ -81,7 +74,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             return emprestimo;
         }
 
-        public override char ApresentarMenu()
+        public char ApresetarMenu()
         {
             Console.Clear();
 
@@ -103,7 +96,6 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
 
             return operacaoEscolhida;
-
         }
     }
 }

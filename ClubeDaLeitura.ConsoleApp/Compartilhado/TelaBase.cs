@@ -1,13 +1,14 @@
 ﻿using ClubeDaLeitura.ConsoleApp.Modolo_Amigo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Emprestimo;
 using ClubeDaLeitura.ConsoleApp.Modolo_Revista;
+using System.Collections;
 
 namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 {
-    internal abstract class TelaBase
+    public abstract class TelaBase<T> where T : EntidadeBase
     {
         public string tipoEntidade = "";
-        public RepositorioBase repositorio = null;
+        public RepositorioBase<T> repositorio = null;
 
         public virtual char ApresentarMenu()
         {
@@ -34,16 +35,8 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             return operacaoEscolhida;
         }
 
-        public virtual void Registrar()
+        protected void InserirRegistro(T entidade)
         {
-            ApresentarCabecalho();
-
-            Console.WriteLine($"Cadastrando {tipoEntidade}...");
-
-            Console.WriteLine();
-
-            EntidadeBase entidade = ObterRegistro();
-
             List<string> erros = entidade.Validar();
 
             if (erros.Count > 0)
@@ -55,6 +48,19 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             repositorio.Cadastrar(entidade);
 
             ExibirMensagem($"O {tipoEntidade} foi cadastrado com sucesso!", ConsoleColor.Green);
+        }
+
+        public virtual void Registrar()
+        {
+            ApresentarCabecalho();
+
+            Console.WriteLine($"Cadastrando {tipoEntidade}...");
+
+            Console.WriteLine();
+
+            T entidade = ObterRegistro();
+
+            InserirRegistro(entidade);
         }
 
         public void Editar()
@@ -78,7 +84,7 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
 
             Console.WriteLine();
 
-            EntidadeBase entidade = ObterRegistro();
+            T entidade = ObterRegistro();
 
             List<string> erros = entidade.Validar();
 
@@ -166,83 +172,6 @@ namespace ClubeDaLeitura.ConsoleApp.Compartilhado
             Console.ReadLine();
         }
 
-        protected abstract EntidadeBase ObterRegistro();
-
-        public EntidadeBase ObterDataDevolucao(Emprestimo emprestimo)
-        {
-            Amigo amigo = emprestimo.Amigo;
-            Revista revista = emprestimo.Revista;
-            DateTime retirada = emprestimo.Retirada;
-
-            Console.Write("Digite a data da devolução: ");
-            DateTime devolucao = Convert.ToDateTime(Console.ReadLine());
-
-            bool estado = emprestimo.Estado;
-
-            EntidadeBase emprestimo_Novo = new Emprestimo(amigo, revista, retirada, devolucao, estado);
-            return emprestimo_Novo;
-        }
-
-        public void Concluir()
-        {
-
-            ApresentarCabecalho();
-
-            Console.WriteLine($"Concluir {tipoEntidade}...");
-
-            Console.WriteLine();
-
-            VisualizarRegistros(false);
-
-            Console.Write($"Digite o ID do {tipoEntidade} que deseja concluir: ");
-            int idEntidadeEscolhida = Convert.ToInt32(Console.ReadLine());
-
-            List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
-            EntidadeBase entidade;
-
-            foreach (Emprestimo emprestimo in lista_Eprestimos)
-            {
-                if (idEntidadeEscolhida == emprestimo.Id)
-                {
-                    entidade = ObterDataDevolucao(emprestimo);
-
-                    bool conseguiuEditar = repositorio.Editar(idEntidadeEscolhida, entidade);
-
-                    if (!conseguiuEditar)
-                    {
-                        ExibirMensagem($"Houve um erro durante a edição de {tipoEntidade}", ConsoleColor.Red);
-                        return;
-
-                    }
-                    ExibirMensagem($"O {tipoEntidade} foi editado com sucesso!", ConsoleColor.Green);
-                    return;
-                }
-            }
-        }
-
-        public void Quitar()
-        {
-            ApresentarCabecalho();
-
-            Console.WriteLine($"Quitar {tipoEntidade}...");
-
-            Console.WriteLine();
-
-            VisualizarRegistros(false);
-
-            Console.Write($"Digite o ID da {tipoEntidade} que deseja quitar: ");
-            int idEntidadeEscolhida = Convert.ToInt32(Console.ReadLine());
-
-            List<EntidadeBase> lista_Eprestimos = repositorio.SelecionarTodos();
-            EntidadeBase entidade;
-            foreach (Amigo amigo in lista_Eprestimos)
-            {
-                if (idEntidadeEscolhida == amigo.Id)
-                {
-                    amigo.Multa = 0;
-                    break;
-                }
-            }
-        }
+        protected abstract T ObterRegistro();
     }
 }

@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 {
-    internal class Tela_Reserva : TelaBase
+    internal class Tela_Reserva : TelaBase<Reserva> , ITelaCadastros
     {
         //para buscar as revistas ja cadastradas
         public Tela_Revista tela_Revista = null;
@@ -37,7 +37,7 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
                 "{0, -10} | {1, -20} | {2, -20}| {3, -20}",
                 "Id", "Amigo", "Revista", "Valido");
 
-            List<EntidadeBase> lista_Reserva = repositorio.SelecionarTodos();
+            List<Reserva> lista_Reserva = repositorio.SelecionarTodos();
             string disponivel;
             foreach (Reserva reserva in lista_Reserva)
             {
@@ -59,21 +59,21 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
             Console.WriteLine();
         }
 
-        protected override EntidadeBase ObterRegistro()
+        protected override Reserva ObterRegistro()
         {
             tela_Revista.VisualizarRegistros(true);
 
             Console.Write("Digite o id da revista: ");
             int id_Revista = (int)Convert.ToUInt32(Console.ReadLine());
 
-            Revista revista_Selecionada = (Revista)repositorio_Revista.SelecionarPorId(id_Revista);
+            Revista revista_Selecionada = repositorio_Revista.SelecionarPorId(id_Revista);
 
             tela_Amigo.VisualizarRegistros(true);
 
             Console.Write("Digite o id do amigo: ");
             int id_Amigo = (int)Convert.ToUInt32(Console.ReadLine());
 
-            Amigo amigo_Selecionado = (Amigo)repositorio_Amigo.SelecionarPorId(id_Amigo);
+            Amigo amigo_Selecionado = repositorio_Amigo.SelecionarPorId(id_Amigo);
 
             Reserva Reserva = new Reserva(amigo_Selecionado, revista_Selecionada);
 
@@ -115,6 +115,11 @@ namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
             char operacaoEscolhida = Convert.ToChar(Console.ReadLine());
 
             return operacaoEscolhida;
+        }
+
+        public char ApresetarMenu()
+        {
+            throw new NotImplementedException();
         }
     }
 }

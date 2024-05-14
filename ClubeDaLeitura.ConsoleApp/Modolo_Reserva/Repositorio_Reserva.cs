@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClubeDaLeitura.ConsoleApp.Modolo_Responsavel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClubeDaLeitura.ConsoleApp.Modolo_Reserva
 {
-    internal class Repositorio_Reserva : RepositorioBase
+    internal class Repositorio_Reserva : RepositorioBase<Reserva>
     {
     }
 }
